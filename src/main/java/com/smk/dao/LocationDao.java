@@ -1,6 +1,7 @@
 package com.smk.dao;
 
 import com.smk.model.Location;
+import com.smk.model.Schedule;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +47,7 @@ public class LocationDao implements Dao<Location, Integer>{
     }
 
     @Override
-    public Optional<Location> save(Location location) {
+    public Optional<Schedule> save(Location location) {
         return Optional.empty();
     }
 
