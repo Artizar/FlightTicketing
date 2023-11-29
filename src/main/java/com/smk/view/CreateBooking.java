@@ -9,6 +9,7 @@ import com.smk.model.Location;
 import com.smk.model.Schedule;
 import com.smk.model.dtd.ScheduleDTO;
 import com.vaadin.flow.component.ClickEvent;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -18,6 +19,7 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -63,6 +65,11 @@ public class CreateBooking extends VerticalLayout {
         grid.addColumn(ScheduleDTO::getDepartureLocation).setHeader("Keberangkatan");
         grid.addColumn(ScheduleDTO::getArrivalLocation).setHeader("kedatangan");
         grid.addColumn(ScheduleDTO::getDepartureDate).setHeader("Waktu keberangkatan");
+
+        grid.setItemDetailsRenderer(CreateBookingFormlayout.createBookingRenderer());
+
+        add(fromComboBox, toCombobox, departureDatePicker, arrivalDatePicker, searchButton, grid);
+
 
         add(fromComboBox,toCombobox,departureDatePicker,arrivalDatePicker,searchButton,grid);
         searchButton.addClickListener(ClickEvent -> {
@@ -116,6 +123,10 @@ public class CreateBooking extends VerticalLayout {
             fromTextField.setValue(scheduleDTO.getDepartureLocation());
             toTextField.setValue(scheduleDTO.getArrivalLocation());
             departureDatePicker.setValue(LocalDate.parse(scheduleDTO.getDepartureLocation()));
+        }
+
+        private static ComponentRenderer<CreateBookingFormlayout,ScheduleDTO> createBookingRenderer(){
+            return new ComponentRenderer<>(CreateBookingFormlayout::new,CreateBookingFormlayout::setScheduleDTO);
         }
     }
 
