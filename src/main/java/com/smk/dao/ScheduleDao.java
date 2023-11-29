@@ -50,6 +50,7 @@ public class ScheduleDao implements Dao<Schedule, Integer> {
     }
 
     public Collection<ScheduleDTO> searchSchedule(long departureId, long arrivalId, Date departureDate){
+        //Logger.info("departureId = + departureId + arrivalId = + arrivalId + departureDate = + departureDate);
         Collection<ScheduleDTO> result = new LinkedList<>();
         String sql = "SELECT schedule.*, location_departure.name departure, location_arrival.name arrival " +
                 "from schedule inner join location location_departure " +
